@@ -1,0 +1,53 @@
+body{
+    background: rgb(125,59,88);
+    background: radial-gradient(circle, rgba(125,59,88,1) 0%, rgba(88,148,219,1) 100%);
+}
+
+.container{
+   width: 70%;
+}
+
+.form-label{
+    font-size: 20px;
+    margin-left: 40%;
+}
+
+#bookName{
+    width: 80%;
+    margin: auto;
+}
+
+#bookCatigory{
+    width: 80%;
+    margin: auto;
+}
+
+.count .form-label{
+    margin-left: 45%;
+}
+
+.descriptionLable{
+    margin-left: 43%;
+}
+
+#bookNumber{
+    width: 80%;
+    margin: auto;
+}
+
+#bookPrice{
+    width: 80%;
+    margin: auto;
+}
+
+#bookDescription{
+    width: 90%;
+}
+
+.date .form-label{
+    margin-left: 37%;
+}
+
+#Submit{
+    margin-left: 42%;
+}
