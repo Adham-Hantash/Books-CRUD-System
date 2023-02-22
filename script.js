@@ -14,13 +14,13 @@ var tbody = document.getElementById('tbody');
 var bookCount = document.getElementById('bookCount');
 var Books;
 var index;
+
 if(localStorage.getItem('Books')){
     Books= JSON.parse(localStorage.getItem('Books'));
     displayData(); 
 }
 else
 Books = [];
-
 
 Submit.onclick = function(event){
     if(Submit.value == "Submit" && bookCount.value == 1){
@@ -51,6 +51,15 @@ Submit.onclick = function(event){
         event.preventDefault();
         updateData(index);
     }
+
+     bookName.classList.remove('is-valid');
+     bookCatigory.classList.remove('is-valid');
+     bookNumber.classList.remove('is-valid');
+     bookPrice.classList.remove('is-valid');
+     bookDescription.classList.remove('is-valid');
+     bookBook.classList.remove('is-valid'); 
+     bookReturn.classList.remove('is-valid');
+
 }
 
 //create order
@@ -98,7 +107,20 @@ data+=`
 </tr>
 `
 tbody.innerHTML = data;
+sumPrice();
 }
+
+// Total price
+function sumPrice(){
+  var total = 0;
+  for(var i=0 ; i<Books.length ; i++){
+  total+= Number(Books[i].bookPrice)
+  }
+console.log(total)
+console.log(totalPrice);
+totalPrice.innerHTML= total;
+}
+
 
 //clear Data
 function clearData() {
@@ -403,4 +425,26 @@ bookName.onkeyup = function(){
   //////////////////////////////////////////
 
   //search
-  
+  search.onkeyup = function(){
+    var data="";
+    for(var i=0 ; i<Books.length ; i++){
+    if(courses[i].bookName.toLowerCase().includes(search.value.toLowerCase())){
+data+=`
+<tr>
+    <td>${i+1}</td>
+    <td>${Books[i].bookName}</td>
+    <td>${Books[i].bookCatigory}</td>
+    <td>${Books[i].bookNumber}</td>
+    <td>${Books[i].bookPrice}</td>
+    <td>${Books[i].bookDescription}</td>
+    <td>${Books[i].bookBook}</td>
+    <td>${Books[i].bookReturn}</td>
+    <td> <button class="btn btn-info" onclick="getCourse(${i})">Update</button> </td> 
+    <td> <button class="btn btn-danger" onclick="deleteCourse(${i})">Delete</button> </td>
+</tr>
+`
+tbody.innerHTML = data;
+    }
+    }
+}
+
