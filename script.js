@@ -11,6 +11,7 @@ var Clear = document.getElementById('Clear');
 var search = document.getElementById('search');
 var deleteAll = document.getElementById('deleteAll');
 var tbody = document.getElementById('tbody');
+var tfoot = document.getElementById('tfoot');
 var bookCount = document.getElementById('bookCount');
 var Books;
 var index;
@@ -22,12 +23,20 @@ if(localStorage.getItem('Books')){
 else
 Books = [];
 
+if(localStorage.getItem('totalPrice')){
+  totalPrice= JSON.parse(localStorage.getItem('totalPrice'));
+  sumPrice(); 
+}
+else
+totalPrice = 0;
+
 Submit.onclick = function(event){
     if(Submit.value == "Submit" && bookCount.value == 1){
     event.preventDefault();
     createOrder();
     PrintData();
     displayData();
+    sumPrice();
     clearData();
     }
 
@@ -36,6 +45,7 @@ Submit.onclick = function(event){
         booksCount();
         PrintData();
         displayData();
+        sumPrice()
         clearData();
     }
     else if(Submit.value == "Submit" && bookCount.value<1){
@@ -88,6 +98,8 @@ function PrintData(){
     console.log(Books);
 }
 
+var totalPrice = document.getElementById("totalPrice");
+
 //read orders
 function displayData(){
 var data = "";
@@ -107,18 +119,34 @@ data+=`
 </tr>
 `
 tbody.innerHTML = data;
-sumPrice();
+
 }
 
 // Total price
 function sumPrice(){
   var total = 0;
+  var footdata = " ";
   for(var i=0 ; i<Books.length ; i++){
   total+= Number(Books[i].bookPrice)
   }
-console.log(total)
+
+footdata += `
+<tr>
+<td>*</td>
+<td></td>
+<td></td>
+<td>Total Price = <span id="totalPrice" class="text-danger">${total}</span></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+`
+tfoot.innerHTML = footdata;
+localStorage.setItem('totalPrice' , JSON.stringify(totalPrice));
 console.log(totalPrice);
-totalPrice.innerHTML= total;
 }
 
 
